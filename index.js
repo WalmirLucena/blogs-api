@@ -18,6 +18,7 @@ app.post('/login', validateEmail, validatePassword, login);
 app.get('/user', validateJWT, getAll);
 app.get('/user/:id', validateJWT, getById);
 app.post('/categories', validateJWT, CategoryController.create);
+app.get('/categories', validateJWT, CategoryController.getAll);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
