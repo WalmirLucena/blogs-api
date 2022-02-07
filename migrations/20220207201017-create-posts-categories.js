@@ -5,23 +5,23 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         primaryKey: true,
-        references: {
-          models: 'BlogPosts',
-          key: 'id',
-        },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
+        references: {
+          model: 'BlogPosts',
+          key: 'id',
+        },
       },
       categoryId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         primaryKey: true,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
         references: {
           model: 'Categories',
           key: 'id',
         },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
       }, 
     });
   },
