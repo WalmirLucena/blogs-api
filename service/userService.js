@@ -1,28 +1,33 @@
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
+const createToken = require('../controllers/middlewares/createToken');
 const { User } = require('../models');
 
 const createUser = async (user) => {
     const { displayName, email, password, image } = user;
 
     const userRegistered = await User.findOne({ where: { email } });
-    console.log(userRegistered, '9');
-
+    
     if (userRegistered) return ({ message: 'User already registered' });
 
     const newUser = await User.create({ displayName, email, password, image });
-    const jwtConfig = {
-        expiresIn: '3h',
-        algorithm: 'HS256',
-    };
+    
+    const token = createToken(newUser);
 
-    const secret = process.env.JWT_SECRET;
+    return token;
+};
 
-    const token = jwt.sign({ data: newUser }, secret, jwtConfig);
+const login = async (data) => {
+    const { email } = data;
+
+    const userRegistered = await User.findOne({ where: { email } });
+
+    if (!userRegistered) return ({ message: 'Invalid fields' });
+
+    const token = createToken(userRegistered);
 
     return token;
 };
 
 module.exports = {
     createUser,
+    login,
 };

@@ -17,7 +17,11 @@ const validateEmail = (req, res, next) => {
     const { email } = req.body;
     const regValid = /\S+@\S+\.\S+/;
 
-    if (!email) {
+    if (email === '') {
+        return res.status(400).send({ message: '"email" is not allowed to be empty' });
+    }
+
+    if (email === undefined) {
         return res.status(400).send({ message: '"email" is required' });
     }
 
@@ -31,7 +35,11 @@ const validateEmail = (req, res, next) => {
 const validatePassword = (req, res, next) => {
     const { password } = req.body;
 
-    if (!password) {
+    if (password === '') {
+        return res.status(400).send({ message: '"password" is not allowed to be empty' });
+    }
+
+    if (password === undefined) {
         return res.status(400).send({ message: '"password" is required' });
     }
 
