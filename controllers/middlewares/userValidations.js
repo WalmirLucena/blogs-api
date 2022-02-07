@@ -1,3 +1,5 @@
+const { verifyToken } = require('./utilsJWT');
+
 const validateName = async (req, res, next) => {
     const { displayName } = req.body;
 
@@ -50,8 +52,23 @@ const validatePassword = (req, res, next) => {
     next();
 };
 
+const validateJWT = async (req, res, next) => {
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+        return res.status(401).send({ message: 'Token not found' });
+    }
+    try {
+        verifyToken(authorization);
+    } catch (err) {
+        return res.status(401).json({ message: 'Expired or invalid token' });
+    }
+    next();
+};
+
 module.exports = {
     validateName,
     validateEmail,
     validatePassword,
+    validateJWT,
 };

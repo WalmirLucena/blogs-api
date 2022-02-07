@@ -1,4 +1,4 @@
-const createToken = require('../controllers/middlewares/createToken');
+const { createToken } = require('../controllers/middlewares/utilsJWT');
 const { User } = require('../models');
 
 const createUser = async (user) => {
@@ -27,7 +27,14 @@ const login = async (data) => {
     return token;
 };
 
+const getAll = async () => {
+   const users = await User.findAll();
+
+   return users;
+};
+
 module.exports = {
     createUser,
     login,
+    getAll,
 };
