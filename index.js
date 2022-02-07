@@ -5,13 +5,13 @@ const {
   validateName, 
   validatePassword } = require('./controllers/middlewares/userValidations');
 
-const { CreateUser } = require('./controllers/userController');
+const { createUser } = require('./controllers/userController');
 
 const app = express();
 
 app.use(bodyParser.json());
 
-app.post('/user', validateName, validateEmail, validatePassword, CreateUser);
+app.post('/user', validateName, validateEmail, validatePassword, createUser);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

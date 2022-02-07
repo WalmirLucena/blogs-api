@@ -1,25 +1,13 @@
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
-const { User } = require('../models');
+const UserService = require('../service/userService');
 
-const CreateUser = async (req, res) => {
+const createUser = async (req, res) => {
     try {
-    const { displayName, email, password, image } = req.body;
-    console.log('Antes: ', email);
-    const userRegistered = await User.findOne({ where: { email } });
-    console.log('depois: ', userRegistered);
-    if (userRegistered) return res.status(409).send({ message: 'User already registered' });
-    const newUser = await User.create({ displayName, email, password, image });
-    const jwtConfig = {
-        expiresIn: '3h',
-        algorithm: 'HS256',
-    };
+    const newUser = await UserService.createUser(req.body);
+    console.log(newUser.message, '6');
 
-    const secret = process.env.JWT_SECRET;
+    if (newUser.message) return res.status(409).send({ message: newUser.message });
 
-    const token = jwt.sign({ data: newUser }, secret, jwtConfig);
-
-    return res.status(201).send({ token });
+    return res.status(201).json({ token: newUser });
     } catch (err) {
         res.status(500)
       .json({ message: 'Erro ao salvar o usuário no banco', error: err.message });
@@ -27,5 +15,5 @@ const CreateUser = async (req, res) => {
     };
 
 module.exports = {
-    CreateUser,
+    createUser,
 };
