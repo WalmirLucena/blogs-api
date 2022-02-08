@@ -11,7 +11,20 @@ const getAll = async () => {
     return users;
  };
 
+const findCategories = async (categories) => {
+    const getCategory = await Categorie.findAll({ where: { id: categories } });
+
+    const allCategory = getCategory.map((categorie) => ({ ...categorie.dataValues }));
+    
+    const existId = categories.filter((catId) => allCategory.some((cat) => cat.id === catId));
+
+    if (existId.length === categories.length) return true;
+
+    return false;
+};
+
 module.exports = {
     create,
     getAll,
+    findCategories,
 };

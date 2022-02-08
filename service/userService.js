@@ -1,4 +1,4 @@
-const { createToken } = require('../controllers/middlewares/utilsJWT');
+const { createToken } = require('../middlewares/utilsJWT');
 const { User } = require('../models');
 
 const createUser = async (user) => {

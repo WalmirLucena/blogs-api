@@ -4,10 +4,14 @@ const {
   validateEmail, 
   validateName, 
   validatePassword, 
-  validateJWT } = require('./controllers/middlewares/userValidations');
+  validateJWT } = require('./middlewares/userValidations');
 
 const { createUser, login, getAll, getById } = require('./controllers/userController');
-const CategoryController = require('./controllers/categoryController'); 
+const CategoryController = require('./controllers/categoryController');
+const PostController = require('./controllers/postControllers'); 
+const { validateTitle, 
+  validateCategoryIds, 
+  validateContent } = require('./middlewares/postsValidation');
 
 const app = express();
 
@@ -17,8 +21,14 @@ app.post('/user', validateName, validateEmail, validatePassword, createUser);
 app.post('/login', validateEmail, validatePassword, login);
 app.get('/user', validateJWT, getAll);
 app.get('/user/:id', validateJWT, getById);
+
 app.post('/categories', validateJWT, CategoryController.create);
 app.get('/categories', validateJWT, CategoryController.getAll);
+
+app.post('/post', validateJWT, 
+  validateTitle, 
+  validateCategoryIds, 
+  validateContent, PostController.create);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
