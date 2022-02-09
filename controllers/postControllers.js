@@ -27,4 +27,15 @@ const create = async (req, res) => {
 }
 };
 
-module.exports = { create };
+const getAll = async (_req, res) => {
+    try {
+    const users = await PostService.getAll();
+
+    return res.status(200).json(users);
+    } catch (err) {
+        return res.status(500)
+        .json({ message: 'Erro ao listar todos Posts', error: err.message });
+    }
+};
+
+module.exports = { create, getAll };

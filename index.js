@@ -29,6 +29,7 @@ app.post('/post', validateJWT,
   validateTitle, 
   validateCategoryIds, 
   validateContent, PostController.create);
+app.get('/post', validateJWT, PostController.getAll);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
