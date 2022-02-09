@@ -15,5 +15,15 @@ const getAll = async () => {
     return posts;
  };
 
+ const getById = async (id) => {
+    const posts = await BlogPosts.findByPk(id, { 
+     include: [
+        { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
+        { model: Categorie, as: 'categories', through: { attributes: [] } }] });
+ 
+    return posts;
+ };
+
 module.exports = { create,
-getAll };
+getAll,
+getById };
