@@ -22,6 +22,19 @@ const validateTitle = (req, res, next) => {
     next();
 };
 
+const validateUpdate = (req, res, next) => {
+    const { title, content, categoryIds } = req.body;
+
+    if (!title) return res.status(400).send({ message: '"title" is required' });
+
+    if (!content) return res.status(400).send({ message: '"content" is required' });
+
+    if (categoryIds) return res.status(400).send({ message: 'Categories cannot be edited' });
+
+    next();
+};
+
 module.exports = { validateCategoryIds,
 validateContent,
-validateTitle };
+validateTitle,
+validateUpdate };

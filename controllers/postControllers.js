@@ -52,4 +52,22 @@ const getById = async (req, res) => {
     }
 };
 
-module.exports = { create, getAll, getById };
+const update = async (req, res) => {
+    try {
+    const { authorization } = req.headers;
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const { data: { id: userId } } = decodeToken(authorization);
+
+    const result = await PostService.update(title, content, id, userId);
+
+    if (result.message) return res.status(401).send({ message: result.message });
+
+    return res.status(200).json(result);
+    } catch (err) {
+        return res.status(500)
+        .json({ message: 'Erro ao dar update no Post', error: err.message });
+    }
+};
+
+module.exports = { create, getAll, getById, update };

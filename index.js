@@ -11,7 +11,8 @@ const CategoryController = require('./controllers/categoryController');
 const PostController = require('./controllers/postControllers'); 
 const { validateTitle, 
   validateCategoryIds, 
-  validateContent } = require('./middlewares/postsValidation');
+  validateContent, 
+  validateUpdate } = require('./middlewares/postsValidation');
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.post('/post', validateJWT,
   validateContent, PostController.create);
 app.get('/post', validateJWT, PostController.getAll);
 app.get('/post/:id', validateJWT, PostController.getById);
+app.put('/post/:id', validateJWT, validateUpdate, PostController.update);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
