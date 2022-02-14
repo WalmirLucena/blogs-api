@@ -41,7 +41,23 @@ const getAll = async () => {
     return { title, content, userId: findNewPost.id, categories: findNewPost.categories };
  };
 
+ const remove = async (id, userId) => {
+   const findPost = await BlogPosts.findByPk(id);
+   console.log(findPost);
+   if (!findPost) return ({ code: 404, message: 'Post does not exist' });
+      
+   if (findPost.dataValues.userId !== userId) return ({ message: 'Unauthorized user' });
+
+   const result = await BlogPosts.destroy({
+      where: {
+         id: Number(id),
+      },
+   });
+   return result;
+ };
+
 module.exports = { create,
 getAll,
 getById,
-update };
+update, 
+remove };

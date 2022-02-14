@@ -33,6 +33,7 @@ app.post('/post', validateJWT,
 app.get('/post', validateJWT, PostController.getAll);
 app.get('/post/:id', validateJWT, PostController.getById);
 app.put('/post/:id', validateJWT, validateUpdate, PostController.update);
+app.delete('/post/:id', validateJWT, PostController.remove);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

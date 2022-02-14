@@ -70,4 +70,23 @@ const update = async (req, res) => {
     }
 };
 
-module.exports = { create, getAll, getById, update };
+const remove = async (req, res) => {
+    try {
+    const { id } = req.params;
+    const { authorization } = req.headers;
+    const { data: { id: userId } } = decodeToken(authorization);
+
+    const result = await PostService.remove(id, userId);
+
+    if (result.code) return res.status(result.code).send({ message: result.message });
+
+    if (result.message) return res.status(401).send({ message: result.message });
+
+    return res.status(204).end();
+    } catch (err) {
+        return res.status(500)
+        .json({ message: 'Erro ao deletar no Post', error: err.message });
+    }
+};
+
+module.exports = { create, getAll, getById, update, remove };
