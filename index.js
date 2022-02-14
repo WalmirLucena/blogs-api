@@ -6,7 +6,7 @@ const {
   validatePassword, 
   validateJWT } = require('./middlewares/userValidations');
 
-const { createUser, login, getAll, getById } = require('./controllers/userController');
+const { createUser, login, getAll, getById, remove } = require('./controllers/userController');
 const CategoryController = require('./controllers/categoryController');
 const PostController = require('./controllers/postControllers'); 
 const { validateTitle, 
@@ -22,6 +22,7 @@ app.post('/user', validateName, validateEmail, validatePassword, createUser);
 app.post('/login', validateEmail, validatePassword, login);
 app.get('/user', validateJWT, getAll);
 app.get('/user/:id', validateJWT, getById);
+app.delete('/user/me', validateJWT, remove);
 
 app.post('/categories', validateJWT, CategoryController.create);
 app.get('/categories', validateJWT, CategoryController.getAll);

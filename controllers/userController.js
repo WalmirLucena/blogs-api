@@ -1,4 +1,5 @@
 const UserService = require('../service/userService');
+const { decodeToken } = require('../middlewares/utilsJWT');
 
 const createUser = async (req, res) => {
     try {
@@ -47,9 +48,24 @@ const getById = async (req, res) => {
     return res.status(200).json(user);
 };
 
+const remove = async (req, res) => {
+    try {
+    const { authorization } = req.headers;
+    const { data: { id } } = decodeToken(authorization);
+
+    await UserService.remove(id);
+
+    return res.status(204).end();
+    } catch (err) {
+        return res.status(500)
+        .json({ message: 'Erro ao apagar o user/me', error: err.message });
+    }
+};
+
 module.exports = {
     createUser,
     login,
     getAll,
     getById,
+    remove,
 };
