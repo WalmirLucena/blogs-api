@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPosts, User, Categorie } = require('../models');
 
 const create = async (newPost) => {
@@ -43,7 +44,7 @@ const getAll = async () => {
 
  const remove = async (id, userId) => {
    const findPost = await BlogPosts.findByPk(id);
-   console.log(findPost);
+
    if (!findPost) return ({ code: 404, message: 'Post does not exist' });
       
    if (findPost.dataValues.userId !== userId) return ({ message: 'Unauthorized user' });
@@ -56,8 +57,28 @@ const getAll = async () => {
    return result;
  };
 
+ const search = async (q) => {
+   const posts = await BlogPosts.findAll({ 
+      where: { 
+         [Op.or]: {
+            title: {
+               [Op.like]: `%${q}%`,
+            },
+            content: {
+               [Op.like]: `%${q}%`,
+            },
+         },
+      },
+      include: [
+         { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
+         { model: Categorie, as: 'categories', through: { attributes: [] } }] });
+  
+     return posts;
+ };
+
 module.exports = { create,
 getAll,
 getById,
 update, 
-remove };
+remove,
+search };

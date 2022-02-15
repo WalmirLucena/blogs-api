@@ -32,6 +32,7 @@ app.post('/post', validateJWT,
   validateCategoryIds, 
   validateContent, PostController.create);
 app.get('/post', validateJWT, PostController.getAll);
+app.get('/post/search', validateJWT, PostController.search);
 app.get('/post/:id', validateJWT, PostController.getById);
 app.put('/post/:id', validateJWT, validateUpdate, PostController.update);
 app.delete('/post/:id', validateJWT, PostController.remove);

@@ -89,4 +89,17 @@ const remove = async (req, res) => {
     }
 };
 
-module.exports = { create, getAll, getById, update, remove };
+const search = async (req, res) => {
+    try {
+        const { q } = req.query;
+
+        const result = await PostService.search(q);
+
+        return res.status(200).json(result);
+    } catch (err) {
+        return res.status(500)
+        .json({ message: 'Erro na search', error: err.message });
+    }
+};
+
+module.exports = { create, getAll, getById, update, remove, search };
