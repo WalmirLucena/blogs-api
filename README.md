@@ -30,7 +30,6 @@ Primeiro, será criada uma tabela para os usuários que desejam se cadastrar na 
     - [11 - Sua aplicação deve ter o endpoint DELETE `post/:id`](#11---sua-aplicação-deve-ter-o-endpoint-delete-postid)
     - [12 - Sua aplicação deve ter o endpoint DELETE `/user/me`](#12---sua-aplicação-deve-ter-o-endpoint-delete-userme)
     - [13 - Sua aplicação deve ter o endpoint GET `post/search?q=:searchTerm`](#13---sua-aplicação-deve-ter-o-endpoint-get-postsearchqsearchterm)
-- [Avisos Finais](#avisos-finais)
 
 # Habilidades 
 
@@ -194,18 +193,6 @@ Alguns exemplos:
   ```
   
   **Os dados acima são fictícios, e estão aqui apenas como exemplo**  
-
-  **OBS: Os testes irão rodar através do seu migrate usando os seguintes comandos:**
-
-  "drop": "npx sequelize-cli db:drop $" -- Dropa o banco
-
-  "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate $" -- Cria o banco e gera as tabelas
-
-  "seed": "npx sequelize-cli db:seed:all $", -- Insere dados na tabela
-
-  **Então preste bastante atenção se estiver errado o avaliador não irá funcionar**
-
-  **Haverá um arquivo na pasta `/seeders` dentro dela irá conter as querys para inserir no banco `não remova ela o avaliador irá usar ela`.**
 
 ## Lista de Requisitos:
 
