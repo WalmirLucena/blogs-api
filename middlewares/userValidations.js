@@ -59,7 +59,11 @@ const validateJWT = async (req, res, next) => {
         return res.status(401).send({ message: 'Token not found' });
     }
     try {
-        verifyToken(authorization);
+        let authHeader;
+        if (authorization && authorization.startsWith('Bearer ')) {
+            authHeader = authorization.slice(7, authorization.length);
+            }
+        verifyToken(authHeader);
     } catch (err) {
         return res.status(401).json({ message: 'Expired or invalid token' });
     }

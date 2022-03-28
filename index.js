@@ -1,19 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('./swagger.json');
 
-const userRouter = require('./router/userRouter');
-const loginRouter = require('./router/loginRouter');
-const categoriesRouter = require('./router/categoriesRouter');
-const postRouter = require('./router/postRouter');
+const router = require('./router');
 
 const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/user', userRouter);
-app.use('/login', loginRouter);
-app.use('/categories', categoriesRouter);
-app.use('/post', postRouter);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+app.use(router);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
