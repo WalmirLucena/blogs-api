@@ -13,7 +13,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use('/', router);
 
-app.listen(3000, () => console.log('ouvindo porta 3000!'));
+app.listen(3001, () => console.log('ouvindo porta 3001!'));
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {

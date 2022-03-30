@@ -7,7 +7,7 @@ module.exports = {
     database: 'blogs_api',
     host: process.env.HOSTNAME,
     dialect: 'mysql',
-    port: '3002',
+    port: process.env.PORT,
   },
   test: {
     username: process.env.MYSQL_USER,
@@ -15,7 +15,7 @@ module.exports = {
     database: 'blogs_api',
     host: process.env.HOSTNAME,
     dialect: 'mysql',
-    port: '3002',
+    port: process.env.PORT,
 
   },
   production: {
@@ -24,7 +24,7 @@ module.exports = {
     database: 'blogs_api',
     host: process.env.HOSTNAME,
     dialect: 'mysql',
-    port: '3002',
+    port: process.env.PORT,
 
   },
 };
