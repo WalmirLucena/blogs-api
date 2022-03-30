@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.use(router);
+app.use('/api', router);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
