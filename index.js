@@ -9,9 +9,9 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.use('/api', router);
+app.use(router);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
